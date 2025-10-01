@@ -1,0 +1,211 @@
+:root {
+    --primary-green: #38761d;
+    --light-green: #93c47d;
+    --hover-green: #6aa84f;
+    --danger-red: #cc0000;
+    --text-color: #333;
+    --border-color: #ccc;
+    --focus-color: #4CAF50;
+}
+
+body {
+    /* الخط الموحد: Arial */
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: var(--text-color);
+    direction: rtl;
+    text-align: right;
+    padding: 20px 10px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-top: 6px solid var(--primary-green);
+    border-radius: 8px;
+}
+
+/* محاذاة العناوين في المنتصف */
+h1, h2, h3, .centered-title { 
+    text-align: center; 
+    color: var(--primary-green); 
+}
+
+h1 { margin-bottom: 30px; }
+h2 { border-bottom: 2px solid var(--light-green); padding-bottom: 8px; margin-top: 40px; font-size: 1.6em;}
+h3 { margin-top: 20px; font-size: 1.1em; font-weight: bold; }
+.section-note { font-style: italic; color: #555; margin-top: 5px; margin-bottom: 10px; text-align: right; }
+
+/* تصميم الأزرار التفاعلية */
+.action-buttons { text-align: center; margin-bottom: 20px; }
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+.btn i { margin-left: 5px; }
+.btn:active { transform: scale(0.98); }
+
+.primary-btn { background-color: var(--primary-green); color: white; }
+.primary-btn:hover { background-color: var(--hover-green); }
+.success-btn { background-color: #579344; color: white; }
+.success-btn:hover { background-color: #4a7d3a; }
+.secondary-btn { background-color: #e6e6e6; color: var(--primary-green); border: 1px solid var(--light-green); }
+.secondary-btn:hover { background-color: #d0d0d0; }
+.danger-btn { background-color: var(--danger-red); color: white; }
+.danger-btn:hover { background-color: #a30000; }
+
+
+/* العرض العرضي للمعلومات الأساسية */
+.horizontal-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+.horizontal-info > div {
+    flex: 1 1 200px;
+}
+.horizontal-info label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+.horizontal-info input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+.horizontal-info input:focus, textarea:focus {
+    border-color: var(--focus-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* تنسيق الجداول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    table-layout: fixed;
+}
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 10px 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+th {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+    font-weight: bold;
+    font-size: 0.9em;
+}
+td:first-child { 
+    text-align: right; 
+    font-weight: 500; 
+    width: 30%;
+} 
+td textarea {
+    width: 90%;
+    min-height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px;
+    resize: vertical;
+}
+
+/* التلخيص اليدوي */
+.summary-box {
+    background-color: #f0f8ee;
+    border: 2px solid var(--light-green);
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 6px;
+}
+.summary-box textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    resize: vertical;
+    padding: 10px;
+    font-size: 0.95em;
+    min-height: 80px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+/* تنسيق الأهداف التفاعلية */
+.goal-item-container {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
+.goal-item-container textarea {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid var(--light-green);
+    border-radius: 4px;
+    resize: vertical;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+.delete-goal-btn {
+    background: none;
+    border: none;
+    color: var(--danger-red);
+    cursor: pointer;
+    font-size: 1.4em;
+    margin-right: 10px;
+    padding: 10px 5px;
+    transition: color 0.2s;
+}
+.delete-goal-btn:hover {
+    color: #a30000;
+}
+
+/* الطباعة */
+@media print {
+    .action-buttons, .add-goal-btn, hr {
+        display: none;
+    }
+    .container {
+        box-shadow: none;
+        border: none;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        font-family: 'Arial', sans-serif !important;
+    }
+    th {
+        background-color: #ddd !important;
+        -webkit-print-color-adjust: exact; 
+        color: #333 !important;
+    }
+    .goal-item-container {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    .delete-goal-btn { display: none; }
+    .goal-item-container textarea {
+        border: none !important;
+        padding: 0 !important;
+        min-height: 50px;
+    }
+}
