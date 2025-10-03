@@ -104,12 +104,14 @@ th {
     border-bottom: 2px solid var(--primary-color);
 }
 
+/* ضبط عرض الأعمدة وتنسيق عمود البند (العمود الأول) */
 td:first-child {
     text-align: right;
     width: 35%; /* تخصيص عرض ثابت لبند البند */
     padding-right: 15px;
     font-weight: bold;
-    background-color: #fcfcfc; 
+    background-color: #fcfcfc; /* خلفية بيضاء خفيفة */
+    border-left: 3px solid var(--primary-color); /* شريط لتمييز العمود الأول */
 }
 
 /* ضبط عرض الأعمدة لتنسيق الجداول */
@@ -243,7 +245,8 @@ td:first-child {
     }
     
     td:first-child {
-        background-color: #f7fcf9 !important;
+        background-color: #fcfcfc !important; /* ضمان بقاء الخلفية الخفيفة للعمود الأول */
+        border-left: 3px solid var(--primary-color) !important; /* ضمان ظهور الشريط */
         -webkit-print-color-adjust: exact;
     }
     
@@ -253,7 +256,8 @@ td:first-child {
     
     /* إضافة فواصل صفحات لتحسين تنظيم PDF */
     .assessment-section, .goals-notes-section, .info-section {
-        page-break-before: always;
+        page-break-before: auto; 
+        page-break-inside: avoid;
     }
     
     .info-section:first-of-type {
@@ -264,5 +268,10 @@ td:first-child {
     .single-choice-title, h1, h2, h3 {
         color: var(--primary-color) !important;
         -webkit-print-color-adjust: exact;
+    }
+    
+    /* إخفاء الأيقونات في الطباعة لجعلها أنظف */
+    .fa-times-circle, .fa-plus {
+         display: none !important;
     }
 }
