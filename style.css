@@ -1,15 +1,17 @@
 :root {
-    --primary-green: #38761d;
-    --light-green: #93c47d;
-    --hover-green: #6aa84f;
+    /* الألوان الجديدة: الأخضر الداكن كلون رئيسي، الرمادي الفاتح كلون ثانوي */
+    --primary-color: #006400;   /* أخضر داكن (Dark Green) */
+    --light-color: #F0F0F0;     /* رمادي هادئ / فاتح جداً (Grayish White) */
+    --hover-color: #004d00;     /* أخضر أغمق للتحويم */
     --danger-red: #cc0000;
+    --success-green: #006400; 
     --text-color: #333;
     --border-color: #ccc;
-    --focus-color: #4CAF50;
+    --focus-color: #006400;   
+    --single-choice-bg: #f8f8f8; /* خلفية رمادية فاتحة لأقسام الاختيار الفردي */
 }
 
 body {
-    /* الخط الموحد: Arial */
     font-family: 'Arial', sans-serif;
     background-color: #f7f7f7;
     color: var(--text-color);
@@ -24,188 +26,243 @@ body {
     background: #fff;
     padding: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-top: 6px solid var(--primary-green);
+    border-top: 6px solid var(--primary-color); 
     border-radius: 8px;
 }
 
-/* محاذاة العناوين في المنتصف */
 h1, h2, h3, .centered-title { 
     text-align: center; 
-    color: var(--primary-green); 
+    color: var(--primary-color); 
+    margin-bottom: 15px;
+}
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 30px 0;
+}
+section {
+    padding: 15px 0;
 }
 
-h1 { margin-bottom: 30px; }
-h2 { border-bottom: 2px solid var(--light-green); padding-bottom: 8px; margin-top: 40px; font-size: 1.6em;}
-h3 { margin-top: 20px; font-size: 1.1em; font-weight: bold; }
-.section-note { font-style: italic; color: #555; margin-top: 5px; margin-bottom: 10px; text-align: right; }
 
-/* تصميم الأزرار التفاعلية */
-.action-buttons { text-align: center; margin-bottom: 20px; }
-.btn {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.1s;
-}
-.btn i { margin-left: 5px; }
-.btn:active { transform: scale(0.98); }
-
-.primary-btn { background-color: var(--primary-green); color: white; }
-.primary-btn:hover { background-color: var(--hover-green); }
-.success-btn { background-color: #579344; color: white; }
-.success-btn:hover { background-color: #4a7d3a; }
-.secondary-btn { background-color: #e6e6e6; color: var(--primary-green); border: 1px solid var(--light-green); }
-.secondary-btn:hover { background-color: #d0d0d0; }
-.danger-btn { background-color: var(--danger-red); color: white; }
-.danger-btn:hover { background-color: #a30000; }
-
-
-/* العرض العرضي للمعلومات الأساسية */
+/* تنسيقات حقول المعلومات */
 .horizontal-info {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
     margin-bottom: 20px;
-    text-align: right;
-}
-.horizontal-info > div {
-    flex: 1 1 200px;
 }
 .horizontal-info label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #555;
+    color: var(--primary-color); 
 }
-.horizontal-info input, textarea {
+
+.horizontal-info input[type="text"], 
+.horizontal-info input[type="date"],
+.notes-section textarea,
+.summary-box textarea {
     width: 100%;
-    padding: 10px;
+    padding: 10px; /* زيادة التباعد داخل الحقول */
     border: 1px solid var(--border-color);
     border-radius: 4px;
     box-sizing: border-box;
-    transition: border-color 0.3s;
+    font-family: 'Arial', sans-serif; 
 }
-.horizontal-info input:focus, textarea:focus {
-    border-color: var(--focus-color);
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+.notes-section textarea {
+    min-height: 100px; /* ارتفاع ثابت للخلفية الطبية */
 }
+.summary-box textarea {
+    min-height: 80px; /* ارتفاع ثابت للتلخيصات */
+}
+
 
 /* تنسيق الجداول */
 table {
     width: 100%;
+    table-layout: fixed; 
     border-collapse: collapse;
-    margin-top: 15px;
-    table-layout: fixed;
+    margin: 15px 0;
 }
+
 th, td {
     border: 1px solid var(--border-color);
-    padding: 10px 5px;
+    padding: 8px 5px; /* تباعد قياسي داخل الخلايا */
     text-align: center;
     vertical-align: middle;
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.95em;
 }
+
 th {
-    background-color: var(--light-green);
-    color: var(--primary-green);
+    background-color: var(--light-color); /* اللون الثانوي الرمادي لرأس الجدول */
+    color: var(--primary-color); 
     font-weight: bold;
-    font-size: 0.9em;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
-td:first-child { 
-    text-align: right; 
-    font-weight: 500; 
-    width: 30%;
-} 
-td textarea {
-    width: 90%;
-    min-height: 40px;
+
+td:first-child {
+    text-align: right;
+    width: 35%; /* تخصيص عرض ثابت لبند البند */
+    padding-right: 15px;
+    font-weight: bold;
+    background-color: #fcfcfc; 
+}
+
+/* ضبط عرض الأعمدة لتنسيق الجداول */
+.col-3 td:nth-child(2), .col-3 td:nth-child(3) { width: 15%; }
+.col-5 td:nth-child(2), .col-5 td:nth-child(3), .col-5 td:nth-child(4) { width: 10%; } /* نعم/لا/غير ملائم */
+.col-5 td:nth-child(5) { width: 25%; } /* ملاحظات */
+.col-7 td:nth-child(2), .col-7 td:nth-child(3), .col-7 td:nth-child(4), .col-7 td:nth-child(5), .col-7 td:nth-child(6) { width: 8%; } /* 5 خيارات */
+.col-7 td:nth-child(7) { width: 25%; } /* ملاحظات */
+.col-6 td:nth-child(7) { width: 20%; } /* ملاحظات للـ 6 أعمدة */
+
+
+/* تنسيق الأهداف والتوصيات والملاحظات */
+.goal-item-container, 
+.note-item-container, 
+.recommendation-item-container {
+    padding: 10px;
+    border: 1px solid var(--light-color); 
+    background-color: var(--single-choice-bg); 
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.goal-item-container textarea, 
+.note-item-container textarea, 
+.recommendation-item-container textarea {
+    width: 100%;
+    padding: 8px;
     border: 1px solid #ddd;
     border-radius: 3px;
-    padding: 5px;
-    resize: vertical;
-}
-
-/* التلخيص اليدوي */
-.summary-box {
-    background-color: #f0f8ee;
-    border: 2px solid var(--light-green);
-    padding: 15px;
-    margin-top: 25px;
-    border-radius: 6px;
-}
-.summary-box textarea {
-    width: 100%;
-    border: 1px solid #ccc;
-    resize: vertical;
-    padding: 10px;
-    font-size: 0.95em;
-    min-height: 80px;
-    background: #fff;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    resize: vertical; /* يمكن تغيير ارتفاعها عمودياً */
 }
-
-/* تنسيق الأهداف التفاعلية */
-.goal-item-container {
+.goal-header {
     display: flex;
-    margin-bottom: 10px;
-    align-items: flex-start;
+    align-items: center;
+    margin-bottom: 5px;
 }
-.goal-item-container textarea {
+.goal-header .goal-item {
     flex-grow: 1;
-    padding: 12px;
-    border: 1px solid var(--light-green);
-    border-radius: 4px;
-    resize: vertical;
-    box-sizing: border-box;
-    font-size: 1em;
+    margin: 0 10px;
+    min-height: 40px;
 }
-.delete-goal-btn {
+.achievement-level select {
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background-color: white;
+}
+.delete-goal-btn, .delete-note-btn, .delete-recommendation-btn {
     background: none;
-    border: none;
     color: var(--danger-red);
+    border: none;
     cursor: pointer;
-    font-size: 1.4em;
-    margin-right: 10px;
-    padding: 10px 5px;
-    transition: color 0.2s;
-}
-.delete-goal-btn:hover {
-    color: #a30000;
+    font-size: 1.2em;
+    padding: 0 5px;
+    margin-right: 5px;
 }
 
-/* الطباعة */
+/* تنسيق جداول الاختيار الفردي (النوع الواحد) */
+.single-choice-table {
+    border: 2px solid var(--primary-color);
+    padding: 10px;
+    border-radius: 6px;
+    background-color: var(--single-choice-bg); 
+    margin-bottom: 20px;
+}
+.single-choice-title {
+    color: var(--primary-color);
+    font-weight: bold;
+    border-right: 5px solid var(--primary-color);
+    padding-right: 10px;
+    margin-right: 0;
+    text-align: right;
+    background-color: var(--light-color); /* اللون الرمادي الفاتح */
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+/* أزرار الإجراءات */
+.btn {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.primary-btn, .success-btn {
+    background-color: var(--primary-color); 
+    color: white;
+}
+.primary-btn:hover, .success-btn:hover {
+    background-color: var(--hover-color); 
+}
+.danger-btn {
+    background-color: var(--danger-red);
+    color: white;
+}
+.danger-btn:hover {
+    background-color: #a00000;
+}
+.secondary-btn {
+    /* تمييز الأزرار الثانوية بلون محايد متناسق مع الرمادي الفاتح */
+    background-color: #6c757d; 
+    color: white;
+}
+.secondary-btn:hover {
+    background-color: #5a6268;
+}
+.action-buttons {
+    text-align: center;
+    margin: 10px 0 20px 0;
+}
+
+/* الطباعة (لتحسين PDF/الطباعة) */
 @media print {
-    .action-buttons, .add-goal-btn, hr {
-        display: none;
-    }
-    .container {
-        box-shadow: none;
-        border: none;
-        max-width: none;
-        margin: 0;
-        padding: 0;
-    }
-    body {
+    /* ضمان ظهور الخط Arial في الطباعة */
+    body, input, textarea, select {
         font-family: 'Arial', sans-serif !important;
     }
+
     th {
-        background-color: #ddd !important;
+        background-color: var(--light-color) !important;
         -webkit-print-color-adjust: exact; 
-        color: #333 !important;
+        color: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
     }
-    .goal-item-container {
-        display: block;
-        margin-bottom: 15px;
-        border: 1px dashed #ccc;
-        padding: 10px;
-        border-radius: 4px;
+    
+    td:first-child {
+        background-color: #f7fcf9 !important;
+        -webkit-print-color-adjust: exact;
     }
-    .delete-goal-btn { display: none; }
-    .goal-item-container textarea {
-        border: none !important;
-        padding: 0 !important;
-        min-height: 50px;
+    
+    .action-buttons, button {
+        display: none !important;
+    }
+    
+    /* إضافة فواصل صفحات لتحسين تنظيم PDF */
+    .assessment-section, .goals-notes-section, .info-section {
+        page-break-before: always;
+    }
+    
+    .info-section:first-of-type {
+        page-break-before: auto;
+    }
+
+    /* لضمان طباعة الألوان للنصوص */
+    .single-choice-title, h1, h2, h3 {
+        color: var(--primary-color) !important;
+        -webkit-print-color-adjust: exact;
     }
 }
