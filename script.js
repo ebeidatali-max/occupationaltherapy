@@ -1,5 +1,5 @@
 // ==========================================================
-// 1. تعريف البيانات لكل جدول (قوائم البنود) - لم تتغير
+// 1. تعريف البيانات لكل جدول (قوائم البنود) - مُحدَّثة
 // ==========================================================
 
 const educationItems = [
@@ -63,12 +63,29 @@ const cognitiveSkillsItems = [
     "ذاكرة بصرية",
     "تخطيط حركي"
 ];
+// تحديث: إضافة البنود الجديدة للجانب الحسي
 const sensoryItems = [
-    "يلف برأسه ك استجابة عند مناداة اسمه", "قادر على الحفاظ على التواصل البصري مع الاخرين",
+    "يعطي الطفل ردة فعل عادية للمس-الاحتضان",
+    "يعطي الطفل ردة فعل ملائمة عند ملامسة مواد مختلفة",
+    "يعطي الطفل ردة فعل ملائمة للأطعمة والروائح",
+    "يعطي الطفل ردة فعل ملائمة لقوة الضوء",
+    "يتابع الاشياء المتحركة والثابتة وينقل بين مثيرين",
+    "يعطي ردة فعل ملائمة للأصوات والضجيج",
+    "يلف برأسه ك استجابة عند مناداة اسمه", 
+    "قادر على الحفاظ على التواصل البصري مع الاخرين",
     "يشير الى الأشياء التي تثير اهتمامه", "عادة ما يلعب ب الألعاب دون وضعها في فمه",
     "يستمتع باللعب ب الألعاب ذات الملامس المختلفة", "يستمتع باللعب ب الالعاب الموسيقية المختلفة",
     "يستمتع عند استخدام الماء", "قادر على تهدئة نفسه عندما ينزعج",
     "قادر على التهدئة بواسطة الهز واللمس والاصوات المريحة", "يبكي و يهدئ شعوره عند الألم"
+];
+// جديد: بنود مراحل اللعب
+const playStageItems = [
+    "اللعب غير المنظم: تحريك الاطراف بشكل عشوائي لاكتشاف الجسد", 
+    "اللعب الانفرادي: الانشغال باللعب بمفرده دون الاهتمام بالاخرين",
+    "سلوك المراقب: مراقبة الاخرين اثناء اللعب دون المشاركة", 
+    "اللعب المتوازي: اللعب بجانب الاخرين دون تفاعل مباشر",
+    "اللعب الترابطي: التفاعل مع الاخرين دون تعاون منظم او هدف مشترك", 
+    "اللعب التعاوني: المشاركة في لعب منظم بهدف مشترك مع الاخرين"
 ];
 
 const playSkillsItems = [
@@ -89,7 +106,7 @@ const playSkillsItems = [
 const gripTypes = ["Cylindrical", "Spherical", "Hook", "Pinch", "Tripod", "Lumbrical"];
 
 // ==========================================================
-// 2. دالة بناء الجداول (كما هي)
+// 2. دالة بناء الجداول (لم تتغير)
 // ==========================================================
 
 function buildTable(containerId, items, type) {
@@ -176,7 +193,7 @@ function buildGripTable(containerId, gripTypes) {
 }
 
 // ==========================================================
-// 3. دوال بناء الأهداف والتوصيات والملاحظات (كما هي)
+// 3. دوال بناء الأهداف والتوصيات والملاحظات (لم تتغير)
 // ==========================================================
 
 const achievementOptions = [
@@ -297,7 +314,7 @@ function updateRecommendationNumbering() {
 }
 
 // ==========================================================
-// 4. وظائف التحميل (Word/PDF) - مُحدَّثة لأنماط Word
+// 4. وظائف التحميل (Word/PDF) - مُحدَّثة لتنسيق الألوان والجداول
 // ==========================================================
 
 function downloadAsPDF() {
@@ -325,6 +342,7 @@ function downloadAsWord() {
     
     const primaryColor = '#006400'; // الأخضر الداكن الجديد
     const lightColor = '#F0F0F0'; // الرمادي الفاتح الجديد
+    const cellBorderColor = '#444'; // لون حدود موحد للخلايا
     
     const footerElement = document.getElementById('institution-footer');
     const footerHTML = footerElement ? footerElement.outerHTML : ''; 
@@ -380,6 +398,7 @@ function downloadAsWord() {
                         
                         // إزالة الإدخالات الأصلية ووضع القيمة المحددة بدلاً منها
                         cell.innerHTML = ''; 
+                        cell.style.textAlign = 'center'; // جعل محتوى الخلايا وسطاً افتراضياً
 
                         if (selectedRadio) {
                             cell.innerHTML = `<strong>${selectedRadio.value}</strong>`;
@@ -387,12 +406,14 @@ function downloadAsWord() {
                             cell.innerHTML = '✅';
                         } else if (noteTextarea) {
                             cell.innerHTML = noteTextarea.value.trim() ? `[ملاحظة]: ${noteTextarea.value.trim()}` : '';
+                            cell.style.textAlign = 'right'; // ملاحظات تكون لليمين
                         } else if (cellIndex > 0 && cell.querySelector('input[type="checkbox"]')) {
                             cell.innerHTML = '❌'; 
                         } else if (cellIndex > 0 && cell.querySelector('input[type="radio"]')) {
                             cell.innerHTML = '-'; 
                         } else if (cellIndex === 0) {
                             cell.innerHTML = `<strong>${itemText}</strong>`; // إعادة البند كنص
+                            cell.style.textAlign = 'right'; // البند يكون لليمين
                         }
                     });
                 });
@@ -405,14 +426,21 @@ function downloadAsWord() {
                 clonedTable.querySelectorAll('th').forEach(th => {
                      th.style.backgroundColor = lightColor; // اللون الفاتح (الرمادي)
                      th.style.color = primaryColor;
-                     th.style.border = '1px solid #444';
+                     th.style.border = `1px solid ${cellBorderColor}`; // استخدام اللون الموحد للحدود
                      th.style.padding = '8px';
                 });
                  clonedTable.querySelectorAll('td').forEach(td => {
-                     td.style.border = '1px solid #444';
+                     td.style.border = `1px solid ${cellBorderColor}`; // استخدام اللون الموحد للحدود
                      td.style.padding = '8px';
                 });
-
+                
+                // تلوين عمود البند (العمود الأول)
+                clonedTable.querySelectorAll('tr').forEach(row => {
+                    const firstCell = row.querySelector('td:first-child');
+                    if (firstCell) {
+                         firstCell.style.backgroundColor = '#fcfcfc'; // خلفية بيضاء خفيفة
+                    }
+                });
 
                 wordContent += clonedTable.outerHTML;
             }
@@ -439,14 +467,14 @@ function downloadAsWord() {
                 if (goalText) {
                     let goalEntry = `<span style="font-weight: bold;">(${index + 1}) ${goalText}</span> - [مستوى الإنجاز: ${achievement}]`;
                     if (goalNotes) {
-                         goalEntry += `<br><em>&nbsp;&nbsp;&nbsp;&nbsp;[ملاحظات الهدف]: ${goalNotes}</em>`;
+                         goalEntry += `<br><em>&nbsp;&nbsp;&nbsp;&nbsp;[ملاحظات المعالج]: ${goalNotes}</em>`;
                     }
                     goals.push(goalEntry);
                 }
             });
 
             if (goals.length > 0) {
-                wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px;"><li>${goals.join('</li><li>')}</li></ul>`;
+                wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px; list-style-type: none;"><li>${goals.join('</li><li>')}</li></ul>`;
             } else if(label) {
                  wordContent += `<p style="color: #777;"><strong>${label}:</strong> لا توجد أهداف مُضافة.</p>`;
             }
@@ -465,7 +493,7 @@ function downloadAsWord() {
              });
 
              if (notes.length > 0) {
-                 wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px;"><li>${notes.join('</li><li>')}</li></ul>`;
+                 wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px; list-style-type: none;"><li>${notes.join('</li><li>')}</li></ul>`;
              } else if(label) {
                   wordContent += `<p style="color: #777;"><strong>${label}:</strong> لا توجد ملاحظات مُضافة.</p>`;
              }
@@ -485,7 +513,7 @@ function downloadAsWord() {
             });
 
             if (recommendations.length > 0) {
-                wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px;"><li>${recommendations.join('</li><li>')}</li></ul>`;
+                wordContent += `<p style="font-weight: bold; margin-top: 15px; color: ${primaryColor};">${label}:</p><ul style="margin-right: 20px; padding: 5px; list-style-type: none;"><li>${recommendations.join('</li><li>')}</li></ul>`;
             } else if(label) {
                  wordContent += `<p style="color: #777;"><strong>${label}:</strong> لا توجد توصيات مُضافة.</p>`;
             }
@@ -508,12 +536,13 @@ function downloadAsWord() {
                 h1, h2, h3 { color: ${primaryColor}; text-align: right; border-bottom: 2px solid ${lightColor}; padding-bottom: 5px; margin-top: 25px; }
                 h1 { text-align: center; }
                 table { width: 100%; border-collapse: collapse; margin: 10px 0; table-layout: fixed; font-size: 10pt;}
-                th, td { border: 1px solid #444; padding: 8px; text-align: center; vertical-align: middle; }
+                th, td { border: 1px solid ${cellBorderColor}; padding: 8px; text-align: center; vertical-align: middle; }
                 th { background-color: ${lightColor}; color: ${primaryColor}; font-weight: bold; }
-                td:first-child { text-align: right; width: 30%; }
+                td:first-child { text-align: right; width: 30%; background-color: #fcfcfc;} 
                 p { margin: 5px 0; }
                 strong { font-weight: bold; }
-                ul { list-style-type: disc; margin-right: 30px; margin-bottom: 15px;}
+                ul { list-style-type: none; margin-right: 20px; padding: 0; margin-bottom: 15px;}
+                ul li { margin-bottom: 8px; }
                 #institution-footer { text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px dashed #aaa; display: block; font-size: 10pt; color: #777; }
             </style>
         </head>
@@ -536,7 +565,7 @@ function downloadAsWord() {
 }
 
 // ==========================================================
-// 5. وظائف الحفظ والتحميل المؤقتة (كما هي)
+// 5. وظائف الحفظ والتحميل المؤقتة (لم تتغير)
 // ==========================================================
 
 function saveTemporaryData() {
@@ -648,7 +677,7 @@ function clearStoredData() {
 }
 
 // ==========================================================
-// 6. تهيئة التطبيق عند التحميل (ربط الأزرار)
+// 6. تهيئة التطبيق عند التحميل (ربط الأزرار) - مُحدَّثة
 // ==========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -673,7 +702,10 @@ document.addEventListener('DOMContentLoaded', () => {
     buildTable('attention-table', attentionItems, '5-col-yes-no');
     buildTable('table-skills-table', tableSkillsItems, '5-col-yes-no');
     buildTable('cognitive-skills-table', cognitiveSkillsItems, '5-col-yes-no');
+    
+    // الجداول المحدثة/المضافة
     buildTable('sensory-table', sensoryItems, '6-col-sensory'); 
+    buildTable('play-stages-table', playStageItems, '5-col-yes-no'); // الجدول الجديد: مراحل اللعب
     buildTable('play-skills-table', playSkillsItems, '5-col-yes-no'); 
     buildGripTable('grip-type-table', gripTypes);
 
