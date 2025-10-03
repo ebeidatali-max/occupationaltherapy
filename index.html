@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة تقييم علاج وظيفي</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container" id="assessment-container">
+        
+        <header id="institution-header">
+        </header>
+
+        <h1 class="centered-title" style="margin-top: 20px;">استمارة تقييم علاج وظيفي</h1>
+        <p class="centered-title" style="font-size: 1.2em; margin-top: -20px; color: #555;">مدرسة البكرية - قسم العلاج الوظيفي</p>
+
+        <div class="action-buttons">
+            <button id="save-temp-btn" class="btn primary-btn"><i class="fas fa-save"></i> تخزين مؤقت</button>
+            <button id="clear-data-btn" class="btn danger-btn"><i class="fas fa-trash-alt"></i> مسح البيانات</button>
+            <button id="print-btn" class="btn secondary-btn"><i class="fas fa-print"></i> طباعة</button>
+            <button id="download-word-btn" class="btn primary-btn"><i class="fas fa-file-word"></i> تحميل (Word)</button>
+            <button id="download-pdf-btn" class="btn primary-btn"><i class="fas fa-file-pdf"></i> تحميل (PDF)</button>
+        </div>
+        <hr>
+
+        <section class="info-section" data-export-title="المعلومات الأساسية">
+            <h2 class="centered-title">المعلومات الخاصة بالطالب</h2>
+            <div class="horizontal-info">
+                <div><label>اسم الطالب:</label><input type="text" id="student-name" data-export-label="اسم الطالب"></div>
+                <div><label>تاريخ الميلاد:</label><input type="date" id="dob" data-export-label="تاريخ الميلاد"></div>
+                <div><label>رقم الهوية:</label><input type="text" id="id-number" data-export-label="رقم الهوية"></div>
+                <div><label>تاريخ التقييم:</label><input type="date" id="assessment-date" data-export-label="تاريخ التقييم"></div>
+                <div><label>رمز المدرسة:</label><input type="text" id="school-code" data-export-label="رمز المدرسة"></div>
+                <div class="radio-group type-select">
+                    <label data-export-label="نوع التقييم">نوع التقييم:</label>
+                    <label><input type="radio" name="assessment-type" value="أولي"> أولي</label>
+                    <label><input type="radio" name="assessment-type" value="إعادة تقييم"> إعادة تقييم</label>
+                </div>
+                <div><label>اسم المعالج:</label><input type="text" id="therapist-name" data-export-label="اسم المعالج"></div>
+                <div><label>مركز العلاج:</label><input type="text" id="center-name" data-export-label="مركز العلاج"></div>
+                <div><label>مدير المدرسة:</label><input type="text" id="principal-name" data-export-label="مدير المدرسة"></div>
+            </div>
+        </section>
+
+        <section class="notes-section" data-export-title="الخلفية الطبية للطالب">
+            <h2 class="centered-title">الخلفية الطبية للطالب</h2>
+            <textarea id="medical-history" rows="4" data-export-label="التفاصيل"></textarea>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="education-environment">
+            <h2 class="centered-title">البيئة التعليمية</h2>
+            <div id="education-environment-table"></div>
+            <div class="summary-box">
+                <h3>تلخيص البيئة التعليمية</h3>
+                <textarea id="summary-education" rows="3" placeholder="اكتب ملخصك هنا..."></textarea>
+            </div>
+        </section>
+        
+        <hr>
+        
+        <section class="assessment-section" data-export-id="mobility">
+            <h2 class="centered-title">التنقل</h2>
+            <h3 class="single-choice-title">نوع الكرسي الخاص بالطالب (يُختار نوع واحد فقط)</h3>
+            <div id="chair-type-table" class="single-choice-table"></div>
+
+            <div id="mobility-table"></div>
+             <div class="summary-box">
+                <h3>تلخيص التنقل</h3>
+                <textarea id="summary-mobility" rows="3" placeholder="اكتب ملخصك هنا..."></textarea>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="motor-skills">
+            <h2 class="centered-title">المهارات الحركية</h2>
+            <p class="section-note">**مدى الحركة والسيطرة على الجذع:**</p>
+            <div id="motor-skills-table"></div>
+
+            <h3 style="margin-top: 25px;">الجلوس</h3>
+            <div id="sitting-table"></div>
+
+            <h3 style="margin-top: 25px;">الوقوف</h3>
+            <div id="standing-table"></div>
+
+            <div class="summary-box"><h3>تلخيص المهارات الحركية</h3><textarea id="summary-motor" rows="3" placeholder="اكتب ملخص المهارات الحركية  هنا..."></textarea></div>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="table-skills">
+            <h2 class="centered-title">مهارات الطاولة</h2>
+            <div id="table-skills-table"></div>
+            
+            <h3 style="margin-top: 25px;">أنواع القبضة الرئيسية</h3>
+            <div id="grip-type-table"></div> 
+
+            <div class="summary-box">
+                <h3>تلخيص مهارات الطاولة والقبضة</h3>
+                <textarea id="summary-table-grip" rows="3" placeholder="اكتب ملخص مهارات الطاولة والقبضة هنا..."></textarea>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="attention">
+            <h2 class="centered-title">مهارات ادارية: التركيز والانتباه</h2>
+            <div id="attention-table"></div>
+            <div class="summary-box">
+                <h3>تلخيص المهارات الادارية التركيز والانتباه </h3>
+                <textarea id="summary-attention" rows="3" placeholder="اكتب ملخص المهارات الادارية التركيز والانتباه هنا..."></textarea>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="cognitive-skills">
+            <h2 class="centered-title">المهارات الإدراكية</h2>
+            <div id="cognitive-skills-table"></div>
+            <div class="summary-box">
+                <h3>تلخيص المهارات الإدراكية</h3>
+                <textarea id="summary-cognitive" rows="3" placeholder="اكتب ملخص المهارات الإدراكية  هنا..."></textarea>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="assessment-section" data-export-id="sensory">
+            <h2 class="centered-title">الجانب الحسي</h2>
+            <div id="sensory-table"></div>
+            <div class="summary-box">
+                <h3>تلخيص الجانب الحسي</h3>
+                <textarea id="summary-sensory" rows="3" placeholder="اكتب ملخص الجانب الحسي هنا..."></textarea>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="assessment-section" data-export-id="play-skills">
+            <h2 class="centered-title">مهارات اللعب</h2>
+            <div id="play-skills-table"></div> 
+            <div class="summary-box">
+                <h3>تلخيص مهارات اللعب</h3>
+                <textarea id="summary-play" rows="3" placeholder="اكتب ملخص مهارات اللعب هنا..."></textarea>
+            </div>
+        </section>
+        
+        <hr>
+
+        <section class="assessment-section" data-export-id="life-skills">
+            <h2 class="centered-title">المهارات الحياتية</h2>
+            
+            <h3>مهارة الأكل</h3>
+            <p class="section-note">**المقاييس الأولية:**</p>
+            <div id="food-initial-table"></div>
+            
+            <h3 class="single-choice-title" style="margin-top: 25px;">نسيج الطعام (يُختار نوع واحد فقط)</h3>
+            <div id="food-texture-table" class="single-choice-table"></div>
+            
+            <h3 class="single-choice-title" style="margin-top: 25px;">يشرب الماء (يُختار نوع واحد فقط)</h3>
+            <div id="drinking-method-table" class="single-choice-table"></div>
+            
+            <p class="section-note">**مهارات الاكل التفصيلية:**</p>
+            <div id="food-detailed-table"></div>
+             <div class="summary-box"><h3>تلخيص مهارات الاكل</h3><textarea id="summary-food" rows="3" placeholder="اكتب ملخص مهارات الاكل هنا..."></textarea></div>
+
+            <h3 style="margin-top: 25px;">الحمام</h3>
+            <p class="section-note">**ضبط الإخراج:**</p>
+            <div id="bathroom-yn-table"></div> 
+            <p class="section-note">**القدرة على استخدام الحمام:**</p>
+            <div id="bathroom-ability-table"></div> 
+            <div class="summary-box"><h3>تلخيص الحمام (يدوي)</h3><textarea id="summary-bathroom" rows="3" placeholder="اكتب ملخص الحمام اليدوي هنا..."></textarea></div>
+
+
+            <h3 style="margin-top: 25px;">ارتداء الملابس والعناية الذاتية</h3>
+            <div id="self-care-table"></div>
+
+            <div class="summary-box" style="margin-top: 15px;"><h3>تلخيص ارتداء الملابس</h3><textarea id="summary-dressing" rows="3" placeholder="اكتب ملخص ارتداء الملابس هنا..."></textarea></div>
+            <div class="summary-box" style="margin-top: 15px;"><h3>تلخيص العناية الذاتية</h3><textarea id="summary-personal-care" rows="3" placeholder="اكتب ملخص العناية الذاتية هنا..."></textarea></div>
+        </section>
+        
+        <hr>
+
+        <section class="goals-notes-section" data-export-id="goals-recommendations">
+            
+            <h2 class="centered-title">أهداف وتوصيات العلاج</h2>
+
+            <h3>الأهداف العلاجية العامة</h3>
+            <div id="general-goals-container" data-export-label="الأهداف العامة">
+                </div>
+            <button class="add-goal-btn btn secondary-btn" data-target="general"><i class="fas fa-plus"></i> إضافة هدف عام</button>
+            
+            <h3 style="margin-top: 30px;">الأهداف العلاجية الخاصة</h3>
+            <div id="specific-goals-container" data-export-label="الأهداف الخاصة">
+                </div>
+            <button class="add-goal-btn btn secondary-btn" data-target="specific"><i class="fas fa-plus"></i> إضافة هدف خاص</button>
+            
+            <h3 style="margin-top: 30px;">ملاحظات المعالج</h3>
+            <div id="therapist-notes-container" data-export-label="ملاحظات المعالج">
+                </div>
+            <button class="add-note-btn btn secondary-btn"><i class="fas fa-plus"></i> إضافة ملاحظة</button>
+
+            <h3 style="margin-top: 30px;">توصيات المعالج</h3>
+            <div id="recommendations-container" data-export-label="توصيات المعالج">
+                </div>
+            <button class="add-recommendation-btn btn secondary-btn"><i class="fas fa-plus"></i> إضافة توصية</button>
+        </section>
+        
+        <footer id="institution-footer">
+            <p style="text-align: center; color: #777; font-size: 0.8em; margin: 0;">-- نهاية الاستمارة --</p>
+        </footer>
+
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
